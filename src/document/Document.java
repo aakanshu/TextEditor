@@ -67,9 +67,31 @@ public abstract class Document {
 		// TODO: Implement this method so that you can call it from the 
 	    // getNumSyllables method in BasicDocument (module 2) and 
 	    // EfficientDocument (module 3).
-	    return 0;
+		int count = 0;
+		boolean vowel = false, consonent = true;
+		for (int i = 0; i < word.length() -1 ; i++) {
+			if( isVowel(word.charAt(i)) ) {
+				vowel = true;
+				if(vowel && consonent)
+					count++;
+				consonent = false;
+			}
+			else {
+				consonent = true;
+				vowel = false;
+			}
+		}
+		if ( !vowel && isVowel(word.charAt(word.length()-1)) && word.charAt(word.length()-1) != 'e' )
+			count++;
+	    return count;
 	}
 	
+	public boolean isVowel(char ch) {
+		ch = Character.toLowerCase(ch);
+		if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' || ch == 'y')
+			return true;
+		return false;
+	}
 	/** A method for testing
 	 * 
 	 * @param doc The Document object to test
@@ -133,7 +155,8 @@ public abstract class Document {
 	    // TODO: You will play with this method in week 1, and 
 		// then implement it in week 2
 		// Flesch score = 206.835 - 1.015 * (#words/#sentence) - 84.6 * (#syllable/#words)
-	    return 2.0;
+		double fleschScore = 206.835 - 1.015 * (getNumWords()/getNumSentences()) - 84.6 * (getNumSyllables()/getNumWords());
+	    return fleschScore;
 	}
 	
 	
