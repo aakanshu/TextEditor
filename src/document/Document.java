@@ -83,6 +83,8 @@ public abstract class Document {
 		}
 		if ( !vowel && isVowel(word.charAt(word.length()-1)) && word.charAt(word.length()-1) != 'e' )
 			count++;
+		if (count == 0)
+			count++;
 	    return count;
 	}
 	
@@ -155,7 +157,7 @@ public abstract class Document {
 	    // TODO: You will play with this method in week 1, and 
 		// then implement it in week 2
 		// Flesch score = 206.835 - 1.015 * (#words/#sentence) - 84.6 * (#syllable/#words)
-		double fleschScore = 206.835 - 1.015 * (getNumWords()/getNumSentences()) - 84.6 * (getNumSyllables()/getNumWords());
+		double fleschScore = 206.835 - (1.015 * (getNumWords()/getNumSentences())) - (84.6 * (getNumSyllables()/getNumWords()));
 	    return fleschScore;
 	}
 	
