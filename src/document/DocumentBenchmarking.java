@@ -1,6 +1,7 @@
 package document;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
@@ -34,12 +35,22 @@ public class DocumentBenchmarking {
 		// You can play around with this.
 		int start = 50000;
 		
-		// TODO: Fill in the rest of this method so that it runs two loops
-		// and prints out timing results as described in the assignment 
-		// instructions and following the pseudocode below.
+		System.out.println("NumberOfChars\tBasicTime\tEfficientTime");
 		for (int numToCheck = start; numToCheck < numSteps*increment + start; 
 				numToCheck += increment)
 		{
+			String text = getStringFromFile(textfile, numToCheck);
+			long startTimeBasic = System.nanoTime();
+			BasicDocument bd = new BasicDocument(text);
+			bd.getFleschScore();
+			long endTimeBasic = System.nanoTime();
+			long startTimeEfficient = System.nanoTime();
+			EfficientDocument ed = new EfficientDocument(text);
+			ed.getFleschScore();
+			long endTimeEfficient = System.nanoTime();
+			double basic = (endTimeBasic - startTimeBasic)/1000000;
+			double efficient = (endTimeEfficient - startTimeEfficient)/1000000;
+			System.out.println(text.length() + "\t" + basic + "\t" + efficient );
 			// numToCheck holds the number of characters that you should read from the 
 			// file to create both a BasicDocument and an EfficientDocument.  
 			
